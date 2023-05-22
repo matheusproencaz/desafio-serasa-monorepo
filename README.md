@@ -83,6 +83,8 @@ O docker-compose sobe as aplicações com o kafka e é possível acessar os dado
 ### Como Executar?
 É necessário ter intalado o Docker.
 
+Na pasta gateway fica a API-GATEWAY e precisa que criei um .env com o conteúdo do .env.example
+
 Com o docker instalado, abrir um terminal e executar o comando:
 
 ```ubuntu
