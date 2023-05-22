@@ -1,4 +1,4 @@
-import { EachBatchPayload, Kafka } from "kafkajs";
+import { Kafka } from "kafkajs";
 import { ScoreCredito } from "./models/score-credito.model";
 
 class KafkaConfig {
@@ -8,7 +8,7 @@ class KafkaConfig {
     constructor() {
         this.kafka = new Kafka({
             clientId: "nodejs-kafka",
-            brokers: ["localhost:29092"]
+            brokers: [process.env.KAFKA_BROKER]
         })
         this.consumer = this.kafka.consumer({ groupId: 'group-1' })
     }

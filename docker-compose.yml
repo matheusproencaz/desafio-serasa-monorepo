@@ -1,6 +1,35 @@
 version: '3'
 
 services:
+  microservicea:
+    container_name: microservicea
+    build:
+      context: ./micro-service-a
+    ports:
+      - 8080:8080
+    networks:
+      - app-network
+
+  microserviceb:
+    container_name: microserviceb
+    build:
+      context: ./micro-service-b
+    ports:
+      - 8081:8081
+    depends_on:
+      - kafka
+    networks:
+      - app-network
+
+  gate:
+    container_name: api-gateway
+    build:
+      context: ./gateway
+    ports: 
+      - 8085:8085
+    networks:
+      - app-network
+
   zookeeper:
     container_name: zookeeper
     image: confluentinc/cp-zookeeper:latest
@@ -9,6 +38,8 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
     ports:
       - 22181:2181
+    networks:
+      - app-network
 
   kafka:
     container_name: kafka
@@ -24,3 +55,9 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
