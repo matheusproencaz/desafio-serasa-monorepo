@@ -80,8 +80,35 @@ Por conta do tempo, não terminei totalmente os micro-serviços, para os serviç
 
 O docker-compose sobe as aplicações com o kafka e é possível acessar os dados via API do node, a disponibilização dos dados transferidos pelo kafka são logados na API Gateway, pois não encontrei uma maneira de transferir-las para o endpoint da API Gateway.
 
+### Como Executar?
+É necessário ter intalado o Docker.
+
+Com o docker instalado, abrir um terminal e executar o comando:
+
+```ubuntu
+$ sudo docker compose up
+```
+
+Este comando começara a subir os containeres com as devidas conexões e export os endpoints localmente.
+
+
+### API GATEWAY Endpoints
+
+Os endpoints de acesso para "verificar" a funcionalidade são os seguintes:
+
+Importante salientar que após a execução do docker compose up a porta de acesso para a API Gateway é 8085 (http://localhost:8085);
+
+ - **/scores** - Vai mandar enviar uma chamada HTTP para o micro-service-b e assim enviar uma mensagem para o producer kafka que será consumido pela API-GATEWAY, é apenas apresentado no console.
+ - **/user?id_user=id1** (header securityToken: validToken) - vai enviar uma requisição HTTP simples para o micro-service-a que respondera um usuário do banco de dados mockado.
+
+Os outros dois micro-serviços também foram expostos, e são acessiveis pelos seguintes caminhos:
+
+- **Micro-service-a** : http://localhost:8080
+    - Endpoints: /users/info?id_user=id2 (header securityToken: validToken)
+- **Micro-service-b** : http://localhost:8081
+    - Endpoints: /send-score
+
 ## Agradecimentos
 
 Gostaria de agradecer ao SerasaExperian pelo desafio apesar de não eu conseguir completar-lo por conta da dificuldade e do tempo, porém creio que consegui demonstrar algum conhecimento.
-
 
